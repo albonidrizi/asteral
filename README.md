@@ -1,28 +1,37 @@
-Asteral
+# Asteral
+
 Asteral is a web application designed to manage and explore asteroid data. It features user authentication, personalized favorites, and profile management. This project utilizes Spring Boot for the backend and Thymeleaf for rendering views.
 
-Features
-User Authentication: Secure login and logout.
-Asteroid Management: View and manage asteroid details.
-Favorites: Add and remove asteroids from user favorites.
-Profile Management: View and update user profile information.
-Technologies Used
-Backend: Spring Boot, Spring Security
-Frontend: Thymeleaf
-Database: PostgreSQL
-Security: BCryptPasswordEncoder for password encryption
-Service Layer: Custom services for managing asteroid data and user profiles
-Getting Started
-Prerequisites
-Java 11 or higher
-Maven
-PostgreSQL
-Installation
-Clone the Repository:
+## Features
 
-bash
-Copy code
-git clone https://github.com/albonidrizi/asteral.git
+- **User Authentication:** Secure login and logout.
+- **Asteroid Management:** View and manage asteroid details.
+- **Favorites:** Add and remove asteroids from user favorites.
+- **Profile Management:** View and update user profile information.
+
+## Technologies Used
+
+- **Backend:** Spring Boot, Spring Security
+- **Frontend:** Thymeleaf
+- **Database:** PostgreSQL
+- **Security:** BCryptPasswordEncoder for password encryption
+- **Service Layer:** Custom services for managing asteroid data and user profiles
+
+## Getting Started
+
+### Prerequisites
+
+- Java 11 or higher
+- Maven
+- PostgreSQL
+
+### Installation
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/albonidrizi/asteral.git
+
 Navigate to the Project Directory:
 
 bash
