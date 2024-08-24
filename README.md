@@ -35,43 +35,42 @@ Asteral is a web application designed to manage and explore asteroid data. It fe
 Navigate to the Project Directory:
 
 bash
-Copy code
-cd asteral
+**cd asteral**
+
 Set Up PostgreSQL:
 
 Create a database and user for the application. Update the application.properties file with your database credentials.
 
-Build and Run the Application:
+**Build and Run the Application:**
 
-bash
-Copy code
-mvn clean install
-mvn spring-boot:run
-Access the Application:
+**bash**
+- mvn clean install
+- mvn spring-boot:run
+- Access the Application:
 
 Open your web browser and go to http://localhost:8080.
 
 Configuration
 Update the application.properties file to configure your database connection and other settings:
 
-properties
-Copy code
-spring.datasource.url=jdbc:postgresql://localhost:5432/yourdatabase
-spring.datasource.username=yourusername
-spring.datasource.password=yourpassword
+- **properties**
+- spring.datasource.url=jdbc:postgresql://localhost:5432/yourdatabase
+- spring.datasource.username=yourusername
+- spring.datasource.password=yourpassword
+
 Usage
-Login: Access the login page at /login.
-Asteroids: View asteroid details at /asteroid/{referenceId}.
-Favorites: Add or remove asteroids from favorites at /user/favorite/add/{referenceId} and /user/favorite/remove/{referenceId}.
-Profile: View your profile at /user/profile.
+- Login: Access the login page at /login.
+- Asteroids: View asteroid details at /asteroid/{referenceId}.
+- Favorites: Add or remove asteroids from favorites at /user/favorite/add/{referenceId} and /user/favorite/remove/{referenceId}.
+- Profile: View your profile at /user/profile.
 
 
 
-License
+**License**
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Acknowledgements
-Spring Boot Documentation
-Thymeleaf Documentation
-PostgreSQL Documentation
-Feel free to adjust this template to better fit the specifics of your project or any additional details you want to include.
+- **Acknowledgements**
+- **Spring Boot Documentation**
+- **Thymeleaf Documentation**
+- **PostgreSQL Documentation**
+- **Feel free to adjust this template to better fit the specifics of your project or any additional details you want to include.**
