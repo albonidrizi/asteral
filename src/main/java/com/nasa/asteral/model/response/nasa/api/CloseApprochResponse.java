@@ -1,16 +1,16 @@
 package com.nasa.asteral.model.response.nasa.api;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
 public class CloseApprochResponse {
-	
-	@SerializedName("close_approach_date")
+
+	@JsonProperty("close_approach_date")
 	private String closeApprochDate;
-	
-	@SerializedName("orbiting_body")
+
+	@JsonProperty("orbiting_body")
 	private String orbitingBody;
 
 }

@@ -3,36 +3,33 @@ package com.nasa.asteral.service;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import com.google.gson.Gson;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class IntegrationService {
-	
-	private final OkHttpClient client = new OkHttpClient();
-	
+
+	private final WebClient webClient;
+
 	public <T> T doGetRequest(String endpoint, Map<String, String> queryParameters,
 			Class<T> clazz) {
 		try {
-			HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
-			queryParameters.forEach((k,v) -> urlBuilder.addQueryParameter(k, v));
-		    String url = urlBuilder.build().toString();
+			var uriBuilder = UriComponentsBuilder.fromHttpUrl(endpoint);
+			if (queryParameters != null) {
+				queryParameters.forEach(uriBuilder::queryParam);
+			}
+			var uri = uriBuilder.build().toUri();
 
-		    Request request = new Request.Builder()
-		      .url(url)
-		      .build();
-		    
-		    Call call = client.newCall(request);
-		    String response = call.execute().body().string();
-		    
-		    return new Gson().fromJson(response, clazz);
+			return webClient.get()
+					.uri(uri)
+					.retrieve()
+					.bodyToMono(clazz)
+					.block();
 		} catch (Exception e) {
-			// TODO Log exception first or else exception is lost
-			throw new RuntimeException("Fetching data from API failed.");
+			throw new RuntimeException("Fetching data from API failed.", e);
 		}
 	}
 

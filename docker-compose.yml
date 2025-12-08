@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=nasa_challenge
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - NASA_API_KEY=${NASA_API_KEY}
+      - NASA_API_DETAILS_ENDPOINT=https://api.nasa.gov/neo/rest/v1/neo
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  db:
+    image: postgres:13-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=nasa_challenge
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

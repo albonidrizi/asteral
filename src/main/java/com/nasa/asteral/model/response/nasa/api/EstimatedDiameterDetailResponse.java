@@ -1,16 +1,16 @@
 package com.nasa.asteral.model.response.nasa.api;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
 public class EstimatedDiameterDetailResponse {
-	
-	@SerializedName("estimated_diameter_min")
+
+	@JsonProperty("estimated_diameter_min")
 	private double estimatedDiameterMin;
-	
-	@SerializedName("estimated_diameter_max")
+
+	@JsonProperty("estimated_diameter_max")
 	private double estimatedDiameterMax;
 
 }

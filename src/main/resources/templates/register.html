@@ -14,7 +14,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
     <meta charset="UTF-8">
-    <title>Asteral | Login</title>
+    <title>Asteral | Register</title>
 </head>
 
 <body class="landing-page sidebar-collapse">
@@ -23,11 +23,9 @@
         <div class="container">
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
                 <ul class="navbar-nav">
-
-                    <li th:each="menu : ${menu_list}">
-                        <a class="nav-link" th:href="${menu.link}" th:text="${menu.label}" />
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="#"
                             target="_blank">
@@ -60,19 +58,16 @@
             </div>
             <div class="content-center">
                 <div class="container">
-                    <h1 class="title">Login</h1>
+                    <h1 class="title">Register</h1>
                 </div>
             </div>
         </div>
 
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/register}" method="post">
             <div class="section section-contact-us text-center">
                 <div class="container">
-                    <div th:if="${param.error}" class="alert alert-danger">
-                        Invalid username and password.
-                    </div>
-                    <div th:if="${param.registered}" class="alert alert-success">
-                        Registration successful! Please login.
+                    <div th:if="${error}" class="alert alert-danger">
+                        <span th:text="${error}"></span>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
@@ -82,7 +77,7 @@
                                         <i class="now-ui-icons users_circle-08"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Username" name="username">
+                                <input type="text" class="form-control" placeholder="Username" name="username" required>
                             </div>
                             <div class="input-group input-lg">
                                 <div class="input-group-prepend">
@@ -90,13 +85,14 @@
                                         <i class="now-ui-icons objects_key-25"></i>
                                     </span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="Password" name="password">
+                                <input type="password" class="form-control" placeholder="Password" name="password"
+                                    required>
                             </div>
                             <div class="send-button">
-                                <input type="submit" value="Sign In"
+                                <input type="submit" value="Register"
                                     class="btn btn-primary btn-round btn-block btn-lg" />
                             </div>
-                            <p class="mt-3">Don't have an account? <a href="/register">Register here</a></p>
+                            <p class="mt-3">Already have an account? <a href="/login">Login here</a></p>
                         </div>
                     </div>
                 </div>

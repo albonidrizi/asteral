@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/table.css" rel="stylesheet">
@@ -16,95 +17,108 @@
     <meta charset="UTF-8">
     <title>My Favorites</title>
 </head>
+
 <body class="landing-page sidebar-collapse">
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
-    <div class="container">
-        <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
+        <div class="container">
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                <ul class="navbar-nav">
 
-                <li th:each="menu : ${menu_list}">
-                    <a class="nav-link" th:href="${menu.link}" th:text="${menu.label}" />
-                </li>
+                    <li th:each="menu : ${menu_list}">
+                        <a class="nav-link" th:href="${menu.link}" th:text="${menu.label}" />
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="#" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                        <p class="d-lg-none d-xl-none">Twitter</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="#" target="_blank">
-                        <i class="fab fa-facebook-square"></i>
-                        <p class="d-lg-none d-xl-none">Facebook</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="#" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                        <p class="d-lg-none d-xl-none">Instagram</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- End Navbar -->
-<div class="wrapper">
-    <div class="page-header page-header-small">
-        <div class="page-header-image" data-parallax="true" style="background-image: url('/images/logo.png');">
-        </div>
-        <div class="content-center">
-            <div class="container">
-                <h1 class="title">My Favorites</h1>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="#"
+                            target="_blank">
+                            <i class="fab fa-twitter"></i>
+                            <p class="d-lg-none d-xl-none">Twitter</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="#"
+                            target="_blank">
+                            <i class="fab fa-facebook-square"></i>
+                            <p class="d-lg-none d-xl-none">Facebook</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom"
+                            href="#" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                            <p class="d-lg-none d-xl-none">Instagram</p>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="wrapper">
+        <div class="page-header page-header-small">
+            <div class="page-header-image" data-parallax="true" style="background-image: url('/images/logo.png');">
+            </div>
+            <div class="content-center">
+                <div class="container">
+                    <h1 class="title">My Favorites</h1>
+                </div>
+            </div>
+        </div>
 
-    <br><br><br>
+        <br><br><br>
 
-    <div th:if="${favoriteAsteroids.empty}">
-        <center><h2>You don't have any favorites yet.</h2></center>
-    </div>
+        <div th:if="${favoriteAsteroids.empty}">
+            <center>
+                <h2>You don't have any favorites yet.</h2>
+            </center>
+        </div>
 
-    <div class="container" th:if="${!favoriteAsteroids.empty}">
-        <div class="row col-md-6 col-md-offset-2 custyle">
-            <table class="table table-striped custab">
-            <thead>
-                <tr>
-                    <th style="width:70%">Reference Id</th>
-                    <th style="width:70%">Name</th>
-                    <th style="width:70%">Absolute Magnitude (H)</th>
-                    <th style="width:70%">Potentially Hazardous</th>
-                    <th style="width:70%">Estm. Diameter Min (Km)</th>
-                    <th style="width:70%">Estm. Diameter Max (Km)</th>
-                    <th style="width:70%">Favorite</th>
-                </tr>
-            </thead>
+        <div class="container" th:if="${!favoriteAsteroids.empty}">
+            <div class="row col-md-6 col-md-offset-2 custyle">
+                <table class="table table-striped custab">
+                    <thead>
+                        <tr>
+                            <th style="width:70%">Reference Id</th>
+                            <th style="width:70%">Name</th>
+                            <th style="width:70%">Absolute Magnitude (H)</th>
+                            <th style="width:70%">Potentially Hazardous</th>
+                            <th style="width:70%">Estm. Diameter Min (Km)</th>
+                            <th style="width:70%">Estm. Diameter Max (Km)</th>
+                            <th style="width:70%">Favorite</th>
+                        </tr>
+                    </thead>
                     <tr th:each="asteroidDetails : ${favoriteAsteroids}">
-                        <td><a th:text="${asteroidDetails.referenceId}" th:href="'/asteroid/' + ${asteroidDetails.referenceId}"></a></td>
+                        <td><a th:text="${asteroidDetails.referenceId}"
+                                th:href="'/asteroid/' + ${asteroidDetails.referenceId}"></a></td>
                         <td th:text="${asteroidDetails.name}"></td>
                         <td th:text="${asteroidDetails.absoluteMagnitude}"></td>
                         <td th:text="${asteroidDetails.potentiallyHazardous}"></td>
                         <td th:text="${asteroidDetails.estimatedDiameterMinKm}"></td>
                         <td th:text="${asteroidDetails.estimatedDiameterMaxKm}"></td>
-                        <td><a th:href="'/user/favorite/remove/' + ${asteroidDetails.referenceId} + '?redirectPage=user/favorite/all'" style="color: #ed0e0e;">Remove from Favorite</a></td>
-            </table>
-        </div>
-    </div>
-
-
-    <footer class="footer footer-default">
-        <div class="container">
-            <div class="copyright" id="copyright">
-                <p>Project Asteral 2023 (c)</p>
+                        <td><a th:href="'/user/favorite/remove/' + ${asteroidDetails.referenceId} + '?redirectPage=user/favorite/all'"
+                                style="color: #ed0e0e;">Remove from Favorite</a></td>
+                </table>
             </div>
         </div>
-    </footer>
-</div>
 
-<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+        <footer class="footer footer-default">
+            <div class="container">
+                <div class="copyright" id="copyright">
+                    <p>Project Asteral 2023 (c)</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
 
 </body>
+
 </html>
