@@ -34,7 +34,9 @@ public class FavoriteAsteroidService {
 				.username(username)
 				.build();
 		
-		favoriteAsteroidRepository.save(favoriteAsteroid);
+		if (favoriteAsteroid != null) {
+			favoriteAsteroidRepository.save(favoriteAsteroid);
+		}
 	}
 	
 	public List<AsteroidDetailResponse> getFavoriteAsteroids(String username) {
@@ -54,7 +56,10 @@ public class FavoriteAsteroidService {
 			return;
 		}
 		
-		favoriteAsteroidRepository.delete(optionalFavoriteAsteroid.get());
+		FavoriteAsteroid favoriteAsteroid = optionalFavoriteAsteroid.get();
+		if (favoriteAsteroid != null) {
+			favoriteAsteroidRepository.delete(favoriteAsteroid);
+		}
 	}
 	
 	public boolean isFavoriteAsteroid(String asteroidReferenceId, String username) {

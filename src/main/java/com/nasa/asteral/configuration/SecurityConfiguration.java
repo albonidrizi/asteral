@@ -1,59 +1,70 @@
 package com.nasa.asteral.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.SecurityFilterChain;
 
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
+
+    public SecurityConfiguration(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     private static final String[] PUBLIC_ENDPOINTS = { "/", "/public", "/public/**", "/api/public/**", "/asteroid/**",
             "/register", "/v3/api-docs/**", "/swagger-ui/**" };
 
     private static final String[] USER_ENDPOINTS = { "/user", "/user/**", "/api/user/**" };
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers(PUBLIC_ENDPOINTS).permitAll()
-                .antMatchers(USER_ENDPOINTS).hasAnyAuthority("USER")
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable().cors()
-                .and()
-                .formLogin()
-                .loginPage("/login").defaultSuccessUrl("/")
-                .permitAll()
-                .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true)
-                .permitAll();
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests(requests -> requests
+				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+				.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+				.requestMatchers(USER_ENDPOINTS).hasAnyAuthority("USER")
+				.anyRequest().authenticated())
+				.csrf(csrf -> csrf.disable()).cors(withDefaults())
+				.formLogin(login -> login
+						.loginPage("/login").defaultSuccessUrl("/")
+						.permitAll())
+				.logout(logout -> logout.logoutUrl("/logout")
+						.logoutSuccessUrl("/").deleteCookies("JSESSIONID")
+						.invalidateHttpSession(true)
+						.permitAll());
+		return http.build();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+	@Bean
+	@SuppressWarnings("deprecation")
+	DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(getPasswordEncoder());
+        return authProvider;
     }
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+	@Bean
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+
+	@Bean
+	PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
