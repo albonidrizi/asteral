@@ -31,6 +31,7 @@ class AsteroidDetailServiceTest {
     private AsteroidDetailService asteroidDetailService;
 
     @BeforeEach
+    @SuppressWarnings("null")
     void setUp() {
         ReflectionTestUtils.setField(asteroidDetailService, "apiKey", "test-api-key");
         ReflectionTestUtils.setField(asteroidDetailService, "asteroidDetailsEndpoint", "http://test.url");
