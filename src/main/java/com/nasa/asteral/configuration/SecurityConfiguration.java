@@ -31,8 +31,8 @@ public class SecurityConfiguration {
 
     private static final String[] USER_ENDPOINTS = { "/user", "/user/**", "/api/user/**" };
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(requests -> requests
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
@@ -49,21 +49,21 @@ public class SecurityConfiguration {
 		return http.build();
     }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+	@Bean
+	DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(getPasswordEncoder());
         return authProvider;
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+	@Bean
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
+	@Bean
+	PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
