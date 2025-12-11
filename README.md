@@ -2,14 +2,15 @@
 
 **Asteral** is a robust Spring Boot application that integrates with NASA's NeoWs API to visualize and track Near-Earth Objects (NEOs). It demonstrates a complete modernization of a legacy Java stack, featuring secure authentication, containerized deployment, and interactive API documentation.
 
-![Java](https://img.shields.io/badge/Java-17-orange) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7-green) ![Docker](https://img.shields.io/badge/Docker-Compose-blue) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-blue) ![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-brightgreen)
+![Java](https://img.shields.io/badge/Java-21-orange) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-green) ![Docker](https://img.shields.io/badge/Docker-Compose-blue) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-blue) ![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-brightgreen)
 
 ## 📌 Project Overview
 This project was built to demonstrate proficiency in:
 *   **Third-party API Integration** (NASA NeoWs)
 *   **Secure Authentication** using Spring Security
 *   **Containerization** & DevOps workflows
-*   **Modern Java Practices** (Java 17 migration)
+*   **Modern Java Practices** (Java 21 with Spring Boot 3.5)
+*   **Upgraded Tech Stack** from Spring Boot 2.7 → 3.5 (Jakarta EE migration)
 
 ## 🚀 Key Features
 *   **🔐 Secure Authentication**: Full login/registration system with BCrypt password hashing and Auto-Login flow.
@@ -21,8 +22,8 @@ This project was built to demonstrate proficiency in:
 ## 🛠 Tech Stack
 | Category | Technology |
 |----------|------------|
-| **Language** | Java 17 LTS |
-| **Framework** | Spring Boot 2.7 (Web, Security, Data JPA) |
+| **Language** | Java 21 LTS |
+| **Framework** | Spring Boot 3.5 (Web, Security, Data JPA) |
 | **Database** | PostgreSQL 13 |
 | **DevOps** | Docker, Docker Compose (Multi-stage builds) |
 | **Tools** | Maven, Lombok, Swagger UI |
@@ -41,15 +42,30 @@ The application is fully containerized. Prerequisites: Docker & Docker Compose.
 2.  **Access the Application**:
     *   **Web UI**: [http://localhost:8080](http://localhost:8080)
     *   **Swagger Docs**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+    *   **Database**: PostgreSQL available on `localhost:5433`
 
 3.  **Demo Credentials**:
     *   Username: `testuser2`
     *   Password: `password`
 
+**Optional**: Set NASA API Key for full functionality:
+```bash
+export NASA_API_KEY=your_api_key_here
+docker-compose up --build -d
+```
+
 ## 💻 Local Development
 If running without Docker:
-1.  Ensure **PostgreSQL** is running on port `5433` (configurable in `application.properties`).
-2.  Run with Maven:
+1.  Ensure **PostgreSQL** is running on port `5433` with database `nasa_challenge`.
+2.  Set environment variables:
+    ```bash
+    export DB_HOST=localhost
+    export DB_PORT=5433
+    export DB_NAME=nasa_challenge
+    export DB_USERNAME=postgres
+    export DB_PASSWORD=password
+    ```
+3.  Run with Maven:
     ```bash
     mvn spring-boot:run
     ```
