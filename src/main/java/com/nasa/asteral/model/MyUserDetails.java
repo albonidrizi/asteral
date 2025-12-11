@@ -1,5 +1,6 @@
 package com.nasa.asteral.model;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 
