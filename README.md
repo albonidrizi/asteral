@@ -86,6 +86,10 @@ src/
 └── test/                   # JUnit 5 & Mockito tests
 ```
 
+## 📹 Video Demo
+[![Project Demo](https://img.youtube.com/vi/JfnWMoPzA8g/0.jpg)](https://www.youtube.com/watch?v=JfnWMoPzA8g)
+[Watch the video demo](https://www.youtube.com/watch?v=JfnWMoPzA8g)
+
 ## 🧪 Testing & Quality Metrics
 
 ### Test Coverage
