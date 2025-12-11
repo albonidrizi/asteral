@@ -27,7 +27,7 @@ public class AsteroidDetailService {
 	private final IntegrationService integrationService;
 	
 	public AsteroidDetailResponse getAsteroidDetailsById(String referenceId) {
-		String requestEndpoint = String.format("%s/%s", asteroidDetailsEndpoint, referenceId);
+		String requestEndpoint = "%s/%s".formatted(asteroidDetailsEndpoint, referenceId);
 		
 		Map<String, String> parameters = new HashMap<>();
 		parameters.put("api_key", apiKey);
