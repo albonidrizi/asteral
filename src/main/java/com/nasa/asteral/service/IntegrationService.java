@@ -17,7 +17,10 @@ public class IntegrationService {
 	public <T> T doGetRequest(String endpoint, Map<String, String> queryParameters,
 			Class<T> clazz) {
 		try {
-			var uriBuilder = UriComponentsBuilder.fromHttpUrl(endpoint);
+			if (endpoint == null || clazz == null) {
+				throw new IllegalArgumentException("Endpoint and class cannot be null");
+			}
+			var uriBuilder = UriComponentsBuilder.fromUriString(endpoint);
 			if (queryParameters != null) {
 				queryParameters.forEach(uriBuilder::queryParam);
 			}
